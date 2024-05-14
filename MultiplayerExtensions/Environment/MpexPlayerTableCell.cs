@@ -25,7 +25,7 @@ namespace MultiplayerExtensions.Objects
 
         internal MpexPlayerTableCell(
             ServerPlayerListViewController playerListView,
-            NetworkPlayerEntitlementChecker entitlementChecker,
+            MpEntitlementChecker entitlementChecker,
             ILobbyPlayersDataModel playersDataModel,
             IMenuRpcManager menuRpcManager)
         {
@@ -47,15 +47,15 @@ namespace MultiplayerExtensions.Objects
 
         [AffinityPrefix]
         [AffinityPatch(typeof(GameServerPlayerTableCell), nameof(GameServerPlayerTableCell.SetData))]
-        public void SetDataPrefix(IConnectedPlayer connectedPlayer, ILobbyPlayerData playerData, bool hasKickPermissions, bool allowSelection, Task<AdditionalContentModel.EntitlementStatus> getLevelEntitlementTask, Image ____localPlayerBackgroundImage)
+        public void SetDataPrefix(IConnectedPlayer connectedPlayer, ILobbyPlayerData playerData, bool hasKickPermissions, bool allowSelection, Task<EntitlementsStatus> getLevelEntitlementTask, Image ____localPlayerBackgroundImage)
         {
             if (getLevelEntitlementTask != null)
-                getLevelEntitlementTask = Task.FromResult(AdditionalContentModel.EntitlementStatus.Owned);
+                getLevelEntitlementTask = Task.FromResult(EntitlementsStatus.Ok);
         }
 
         [AffinityPostfix]
         [AffinityPatch(typeof(GameServerPlayerTableCell), nameof(GameServerPlayerTableCell.SetData))]
-        public void SetDataPostfix(IConnectedPlayer connectedPlayer, ILobbyPlayerData playerData, bool hasKickPermissions, bool allowSelection, Task<AdditionalContentModel.EntitlementStatus> getLevelEntitlementTask, Image ____localPlayerBackgroundImage)
+        public void SetDataPostfix(IConnectedPlayer connectedPlayer, ILobbyPlayerData playerData, bool hasKickPermissions, bool allowSelection, Task<EntitlementsStatus> getLevelEntitlementTask, Image ____localPlayerBackgroundImage)
         {
             ____localPlayerBackgroundImage.enabled = true;
             string? hostSelectedLevel = _playersDataModel[_playersDataModel.partyOwnerId].beatmapLevel?.beatmapLevel?.levelID;

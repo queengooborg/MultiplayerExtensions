@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HMUI;
+using BeatSaber.AvatarCore;
 using MultiplayerCore.Players;
 using MultiplayerExtensions.Players;
 using MultiplayerExtensions.Utilities;
